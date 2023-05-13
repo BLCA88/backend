@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-export default class ProductManager {
+export default class ProductManager1 {
     constructor(path) {
         this.path = path        
         if (fs.existsSync(path)) {            
