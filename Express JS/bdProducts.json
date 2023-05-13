@@ -1,0 +1,34 @@
+[
+	{
+		"titulo": "Prueba3",
+		"descripcion": "blabla",
+		"precio": "4000",
+		"imagen": "bla1",
+		"code": "AR3",
+		"id": 1
+	},
+	{
+		"titulo": "Prueba3",
+		"descripcion": "blabla",
+		"precio": "4000",
+		"imagen": "bla1",
+		"code": "AR3",
+		"id": 2
+	},
+	{
+		"titulo": "Prueba5",
+		"descripcion": "blabla",
+		"precio": "4000",
+		"imagen": "bla1",
+		"code": "AR3",
+		"id": 3
+	},
+	{
+		"titulo": "Prueba5",
+		"descripcion": "blabla",
+		"precio": "4000",
+		"imagen": "bla1",
+		"code": "AR3",
+		"id": 4
+	}
+]
