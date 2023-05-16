@@ -1,40 +1,44 @@
-import ProductManager from './product-manager.js';
+import ProductManager from './productManager.js';
 
-const generador = new ProductManager('../bdProducts.json');
+const manager = new ProductManager('../bdProducts.json');
 
 /* const env = async () => {
     let product = {
-        titulo: 'Prueba6',
+        titulo: 'Prueba8',
         descripcion: 'blabla',
         precio: '4000',
         imagen: 'bla1',
-        code: 'AR12'
+        code: 'AR15'
     };
-    let result = await generador.addProduct(product);
-    console.log(result);
+    let result = await manager.addProduct(product);
 };
 
 env() */
 
 /* const buscarID = async () => {
-    const id = await generador.deleteProductsById(2);
+    const id = await manager.deleteProductsById(2);
     return id;
 }
 
 
 buscarID() */
 
-const update = async () => {
+/* const update = async () => {
     let product = {
-        id: '',
-        titulo: 'Prueba6',
-        descripcion: 'blabla',
-        precio: '4000',
-        imagen: 'bla1',
-        code: 'AR12'
+        "titulo": "Prueba80",
+        "descripcion": "probando objet.defineproperty",
+        "precio": "sentirse dios",
+        "imagen": "yo bailando",
+        "code": "AR5"
     };
-    let result = await generador.updateProduct(product, 1);
+    let result = await manager.updateProduct(product, 1);
     console.log(result);
 };
 
-update();
+update(); */
+
+const productos = async () => {
+    let result = await manager.getProductsById(1);
+    return result;
+}
+productos();

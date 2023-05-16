@@ -1,11 +1,20 @@
 console.log("Starting")
 import express from 'express';
-import ProductManager from './ProductManager.js';
+import ProductManager from './productManager.js';
 const app = express();
 
 
-app.get('/', (req, res) => {
-    res.send("Hola como estas")
+const manager = new ProductManager('./bdProducts.json');
+
+
+
+app.get('/products', (req, res) => {
+    const buscarID = async () => {
+        const objetos = await manager.getProducts();
+        const mostrar = objetos;
+        return mostrar;
+    }
+    res.send(buscarID());
 });
 
-app.listen(8080, () => console.log('Escucho gatin!'));
+app.listen(8080, () => console.log('Escucho loro!'));

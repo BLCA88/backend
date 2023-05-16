@@ -30,22 +30,24 @@ export default class ProductManager {
 
         if (!(codigoExistente || campoVacio)) {
             elementos.push(productos);
+            await fs.promises.writeFile(this.path, JSON.stringify(elementos, null, '\t'));
+            return elementos;
         } else if (campoVacio) {
             console.log('Tenes que completar todos los campos para poder crear un producto');
         } else {
             console.log(`Ingrese un codigo diferente: ${productos.code} ya existe`);
         }
 
-        await fs.promises.writeFile(this.path, JSON.stringify(elementos, null, '\t'));
-        return elementos;
+
     };
 
     async getProducts() {
-        try {
+        if (fs.existsSync(this.path)) {
             const archivo = await fs.promises.readFile(this.path, 'utf8');
             const productos = JSON.parse(archivo);
             return productos;
-        } catch (error) {
+
+        } else {
             console.log(error + `Ocurrio un error al interntar leer el archivo con la ruta ${this.path}`);;
             return [];
         }
@@ -79,20 +81,27 @@ export default class ProductManager {
 
     async updateProduct(objeto, id) {
         const elementos = await this.getProducts();
-        const buscarIndex = elementos.findIndex(i => i.id === id);
-        for (const key in objecto) {
-            if (Object.hasOwnProperty.call(object, key)) {
-                const element = object[key];
-
+        const buscarIndice = elementos.findIndex(i => i.id === id);
+        const buscarID = elementos.find(i => i.id === id)
+        Object.defineProperties(elementos[buscarIndice], {
+            code: {
+                writable: false
+            },
+            id: {
+                writable: false
             }
+        });
+        const propElemen = Object.getOwnPropertyDescriptors(elementos[buscarIndice]);
+        if (buscarID) {
+            for (const propiedad in objeto) {
+                if (elementos[buscarIndice].hasOwnProperty(propiedad) && propElemen[propiedad].writable === true) {
+                    elementos[buscarIndice][propiedad] = objeto[propiedad];
+                }
+            }
+            await fs.promises.writeFile(this.path, JSON.stringify(elementos, null, '\t'));
+            return elementos;
+        } else {
+            console.log('Se presento un error al intentar actualizar los datos');
         }
-        let obm = {
-            objeto,
-            ...elementos[buscarIndex],
-        }
-        console.log(obm)
-
-
-        //await fs.promises.writeFile(this.path, JSON.stringify(elementos, null, '\t'));
-    };
+    }
 }
