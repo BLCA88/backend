@@ -4,11 +4,11 @@ const generador = new ProductManager('../bdProducts.json');
 
 /* const env = async () => {
     let product = {
-        titulo: 'Prueba5',
+        titulo: 'Prueba6',
         descripcion: 'blabla',
         precio: '4000',
         imagen: 'bla1',
-        code: 'AR4'
+        code: 'AR12'
     };
     let result = await generador.addProduct(product);
     console.log(result);
@@ -16,10 +16,25 @@ const generador = new ProductManager('../bdProducts.json');
 
 env() */
 
-const buscarID = async () => {
-    const id = await generador.getProductsById(3);
+/* const buscarID = async () => {
+    const id = await generador.deleteProductsById(2);
     return id;
 }
 
 
-buscarID()
+buscarID() */
+
+const update = async () => {
+    let product = {
+        id: '',
+        titulo: 'Prueba6',
+        descripcion: 'blabla',
+        precio: '4000',
+        imagen: 'bla1',
+        code: 'AR12'
+    };
+    let result = await generador.updateProduct(product, 1);
+    console.log(result);
+};
+
+update();

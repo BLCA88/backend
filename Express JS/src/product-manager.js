@@ -54,7 +54,6 @@ export default class ProductManager {
     async getProductsById(id) {
         const elementos = await this.getProducts();
         const buscarId = elementos.find(i => i.id === id);
-        console.log(buscarId);
         if (buscarId) {
             return buscarId;
         } else if (buscarId === undefined) {
@@ -63,4 +62,37 @@ export default class ProductManager {
         }
     };
 
+
+    async deleteProductsById(id) {
+        const elementos = await this.getProducts();
+        const buscarIndex = elementos.findIndex(i => i.id === id);
+        if (buscarIndex !== -1) {
+            elementos.splice(buscarIndex, 1);
+            console.log(elementos);
+        } else {
+            console.log('No existe el ID selecionado')
+        }
+
+        await fs.promises.writeFile(this.path, JSON.stringify(elementos, null, '\t'));
+
+    };
+
+    async updateProduct(objeto, id) {
+        const elementos = await this.getProducts();
+        const buscarIndex = elementos.findIndex(i => i.id === id);
+        for (const key in objecto) {
+            if (Object.hasOwnProperty.call(object, key)) {
+                const element = object[key];
+
+            }
+        }
+        let obm = {
+            objeto,
+            ...elementos[buscarIndex],
+        }
+        console.log(obm)
+
+
+        //await fs.promises.writeFile(this.path, JSON.stringify(elementos, null, '\t'));
+    };
 }
