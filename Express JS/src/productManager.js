@@ -42,26 +42,21 @@ export default class ProductManager {
     };
 
     async getProducts() {
-        if (fs.existsSync(this.path)) {
+        try {
             const archivo = await fs.promises.readFile(this.path, 'utf8');
             const productos = JSON.parse(archivo);
             return productos;
 
-        } else {
+        } catch (error) {
             console.log(error + `Ocurrio un error al interntar leer el archivo con la ruta ${this.path}`);;
             return [];
         }
     };
 
     async getProductsById(id) {
-        const elementos = await this.getProducts();
-        const buscarId = elementos.find(i => i.id === id);
-        if (buscarId) {
-            return buscarId;
-        } else if (buscarId === undefined) {
-            console.log('No existe el producto con el ID solicitado')
-            return;
-        }
+        const arrayJson = await this.getProducts();
+        const buscarId = arrayJson.find(i => i.id === id);
+        if (buscarId) return buscarId;
     };
 
 
@@ -105,3 +100,4 @@ export default class ProductManager {
         }
     }
 }
+
