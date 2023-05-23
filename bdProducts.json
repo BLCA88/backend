@@ -1,20 +1,35 @@
 [
 	{
-		"titulo": "Intel i5",
-		"descripcion": "Procesador Intel i5 11200",
-		"precio": 4000,
-		"imagen": "/public/img",
-		"code": "AR24",
+		"titulo": "Intel i3",
+		"descripcion": "Procesador Intel i3 12250",
+		"code": "PII312250",
+		"precio": 90000,
 		"stock": 50,
+		"status": true,
+		"category": "",
+		"imagen": [],
 		"id": 1
 	},
 	{
-		"titulo": "AMD R5",
-		"descripcion": "Procesador AMD Ryzen 5 5800",
-		"precio": 4000,
-		"imagen": "/public/img",
-		"code": "AR5",
+		"titulo": "Intel i5",
+		"descripcion": "Procesador Intel i5 12250",
+		"code": "PII512250",
+		"precio": 120000,
 		"stock": 50,
+		"status": true,
+		"category": "",
+		"imagen": [],
 		"id": 2
+	},
+	{
+		"titulo": "Intel i9",
+		"descripcion": "Procesador Intel i9 12250",
+		"code": "PII912250",
+		"precio": 240000,
+		"status": true,
+		"stock": 50,
+		"category": "",
+		"imagen": [],
+		"id": 3
 	}
 ]
