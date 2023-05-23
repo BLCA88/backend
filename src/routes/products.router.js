@@ -43,7 +43,7 @@ router.put('/:id', async (req, res) => {
         const updateProducto = await manager.updateProduct({ titulo, descripcion, code, precio, status, stock, category, imagen }, parseInt(id))
         return res.send(updateProducto);
     } catch (err) {
-        return res.status(400).json({ error: err.message });;
+        return res.status(400).json({ error: err.message });
     }
 });
 

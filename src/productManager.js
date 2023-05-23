@@ -49,7 +49,6 @@ export default class ProductManager {
             const archivo = await fs.promises.readFile(this.path, 'utf8');
             const productos = JSON.parse(archivo);
             return productos;
-
         } catch (error) {
             throw new Error(error + `Ocurrio un error al interntar leer el archivo con la ruta ${this.path}`);
         }
@@ -61,7 +60,6 @@ export default class ProductManager {
         if (buscarId) return buscarId;
         throw new Error(`El producto con el ID${id} no existe.`)
     };
-
 
     async deleteProductsById(id) {
         const elementos = await this.getProducts();
@@ -77,11 +75,10 @@ export default class ProductManager {
     };
 
     async updateProduct(objeto, id) {
-        console.log(objeto);
         const elementos = await this.getProducts();
-        const buscarIndice = elementos.findIndex(i => i.id === id);
+        const indice = elementos.findIndex(i => i.id === id);
         const buscarID = elementos.find(i => i.id === id)
-        Object.defineProperties(elementos[buscarIndice], {
+        Object.defineProperties(elementos[indice], {
             code: {
                 writable: false
             },
@@ -89,11 +86,11 @@ export default class ProductManager {
                 writable: false
             }
         });
-        const propElemen = Object.getOwnPropertyDescriptors(elementos[buscarIndice]);
+        const propElemen = Object.getOwnPropertyDescriptors(elementos[indice]);
         if (buscarID) {
             for (const propiedad in objeto) {
-                if (elementos[buscarIndice].hasOwnProperty(propiedad) && propElemen[propiedad].writable === true) {
-                    elementos[buscarIndice][propiedad] = objeto[propiedad];
+                if (elementos[indice].hasOwnProperty(propiedad) && propElemen[propiedad].writable === true) {
+                    elementos[indice][propiedad] = objeto[propiedad];
                 }
             }
             await fs.promises.writeFile(this.path, JSON.stringify(elementos, null, '\t'));

@@ -8,11 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./src/public'));
 app.use('/api/products', productsRouter);
-app.use('/api/cart', cartRoutes);
-
-
-
-
+app.use('/api/carts', cartRoutes);
 
 
 app.listen(8080, () => console.log('Escucho loro!'));
