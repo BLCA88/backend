@@ -8,37 +8,37 @@ export default class ProductManager {
     async addProduct({ titulo, descripcion, code, precio, status = true, stock, category, imagen = [] }) {
         //Obtiene los elementos del array del archhivo json utilizando el metodo getProducts.
         const elementos = await this.getProducts();
-        const productos = {
+        const producto = {
             titulo,
             descripcion,
             code,
             precio,
-            status: true,
+            status,
             stock,
             category,
             imagen
         }
 
         if (elementos.length === 0) {
-            productos.id = 1;
+            producto.id = 1;
         } else {
-            productos.id = elementos[elementos.length - 1].id + 1;
+            producto.id = elementos[elementos.length - 1].id + 1;
         }
         //CodigoExistente busca dentro de elementos y si encuentra el objeto.code igual a productos.code devuelve true
-        const codigoExistente = elementos.some(p => p.code === productos.code);
+        const codigoExistente = elementos.some(p => p.code === producto.code);
         // Ciclo For que recorre las propiedades de productos, luego un condicional para evaluar si la propiedad es diferente de productos.imagen,
         // si es asi se genera otro condicional para evaluar que no haya campos undefined y otro mas que no tenga el campo codigo repetido.
         // En el caso que no se cumpla ninguno de esos dos condicionales el ultimo pushea productos a elementos y sobreescribe el archivo json bdProductos.json.
-        for (const propiedad in productos) {
-            if (propiedad !== productos.imagen) {
-                if (Object.values(productos).includes(undefined)) {
+        for (const propiedad in producto) {
+            if (propiedad !== producto.imagen && propiedad !== producto.status) {
+                if (Object.values(producto).includes(undefined)) {
                     throw new Error("Faltan campos por completar.")
                 } else if (codigoExistente) {
-                    throw new Error(`Ingrese un codigo diferente ${productos.code} ya existe.`)
+                    throw new Error(`Ingrese un codigo diferente ${producto.code} ya existe.`)
                 } else {
-                    elementos.push(productos);
+                    elementos.push(producto);
                     await fs.promises.writeFile(this.path, JSON.stringify(elementos, null, '\t'));
-                    return elementos;
+                    return producto;
                 }
             }
         }
@@ -99,3 +99,5 @@ export default class ProductManager {
         }
     }
 }
+
+export const productManager = new ProductManager('./bdProducts.json');

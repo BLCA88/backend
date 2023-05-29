@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import CartManager from '../cartManager.js'
+import cartManager from '../../managers/cartManager.js'
 
 const router = Router();
 
-const cartManager = new CartManager('bdCart.json');
 
 router.post('/', async (req, res) => {
     try {
@@ -35,4 +34,4 @@ router.post('/:cid/products/:pid', async (req, res) => {
 });
 
 
-export default router;
+export { router as cartRouter };

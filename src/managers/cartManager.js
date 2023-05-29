@@ -1,7 +1,5 @@
 import fs from 'fs';
-import ProductManager from './productManager.js';
-
-const manager = new ProductManager('./bdProducts.json');
+import { productManager } from './productManager.js';
 export default class CartManager {
     constructor(path) {
         this.path = path;
@@ -50,7 +48,7 @@ export default class CartManager {
     }
 
     async agregarCarrito(cid, pid) {
-        const idProducto = await manager.getProductsById(pid);
+        const idProducto = await productManager.getProductsById(pid);
         const carrito = await this.getCarrito();
         const indice = carrito.findIndex(i => i.id === cid);
         const validarId = carrito[indice].productos.some(propiedades => propiedades.id === pid);
@@ -76,3 +74,5 @@ export default class CartManager {
         return carrito;
     }
 }
+
+export const cartManager = new CartManager('./bdCart.json');

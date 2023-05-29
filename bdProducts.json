@@ -6,7 +6,7 @@
 		"precio": 90000,
 		"stock": 50,
 		"status": true,
-		"category": "",
+		"category": "Procesadores",
 		"imagen": [],
 		"id": 1
 	},
@@ -17,7 +17,7 @@
 		"precio": 120000,
 		"stock": 50,
 		"status": true,
-		"category": "",
+		"category": "Procesadores",
 		"imagen": [],
 		"id": 2
 	},
@@ -28,8 +28,85 @@
 		"precio": 240000,
 		"status": true,
 		"stock": 50,
-		"category": "",
+		"category": "Procesadores",
 		"imagen": [],
 		"id": 3
+	},
+	{
+		"titulo": "AMD Ryzen 5",
+		"descripcion": "Procesador AMD Ryzen 5 5800",
+		"code": "PAR55800",
+		"precio": "189000",
+		"status": true,
+		"stock": "40",
+		"category": "Procesadores",
+		"imagen": [],
+		"id": 4
+	},
+	{
+		"titulo": "AMD Ryzen 3",
+		"descripcion": "Procesador AMD Ryzen 3 5400",
+		"code": "PAR55400",
+		"precio": "123000",
+		"status": true,
+		"stock": "23",
+		"category": "Procesadores",
+		"imagen": [],
+		"id": 5
+	},
+	{
+		"titulo": "AMD Ryzen 7",
+		"descripcion": "Procesador AMD Ryzen 7 5900",
+		"code": "PAR75900",
+		"precio": "203999",
+		"status": true,
+		"stock": "19",
+		"category": "Procesadores",
+		"imagen": [],
+		"id": 6
+	},
+	{
+		"titulo": "Intel Celeron Gold",
+		"descripcion": "Procesador Intel Celeron Gold 1240",
+		"code": "PICG1240",
+		"precio": "95300",
+		"status": true,
+		"stock": "47",
+		"category": "Procesadores",
+		"imagen": [],
+		"id": 7
+	},
+	{
+		"titulo": "AMD A4",
+		"descripcion": "Procesador AMD A4",
+		"code": "PAA4",
+		"precio": "45000",
+		"status": true,
+		"stock": "20",
+		"category": "Procesadores",
+		"imagen": [],
+		"id": 8
+	},
+	{
+		"titulo": "Intel Core XEON GOLD",
+		"descripcion": "Procesador Intel Xeon Gold 6438N",
+		"code": "PIXG6438N",
+		"precio": "340000",
+		"status": true,
+		"stock": "11",
+		"category": "Procesadores",
+		"imagen": [],
+		"id": 9
+	},
+	{
+		"titulo": "Intel Core XEON GOLD",
+		"descripcion": "Procesador Intel Xeon Gold 6438N",
+		"code": "PIXG648N",
+		"precio": "340000",
+		"status": true,
+		"stock": "11",
+		"category": "Procesadores",
+		"imagen": [],
+		"id": 10
 	}
 ]
