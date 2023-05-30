@@ -75,38 +75,5 @@
 		"category": "Procesadores",
 		"imagen": [],
 		"id": 7
-	},
-	{
-		"titulo": "AMD A4",
-		"descripcion": "Procesador AMD A4",
-		"code": "PAA4",
-		"precio": "45000",
-		"status": true,
-		"stock": "20",
-		"category": "Procesadores",
-		"imagen": [],
-		"id": 8
-	},
-	{
-		"titulo": "Intel Core XEON GOLD",
-		"descripcion": "Procesador Intel Xeon Gold 6438N",
-		"code": "PIXG6438N",
-		"precio": "340000",
-		"status": true,
-		"stock": "11",
-		"category": "Procesadores",
-		"imagen": [],
-		"id": 9
-	},
-	{
-		"titulo": "Intel Core XEON GOLD",
-		"descripcion": "Procesador Intel Xeon Gold 6438N",
-		"code": "PIXG648N",
-		"precio": "340000",
-		"status": true,
-		"stock": "11",
-		"category": "Procesadores",
-		"imagen": [],
-		"id": 10
 	}
 ]

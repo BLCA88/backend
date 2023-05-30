@@ -4,7 +4,6 @@ const botonAgregar = document.getElementById('button-addon2');
 const botonModificar = document.getElementById('button-updateon2');
 const botonEliminar = document.getElementById('button-deleteon2');
 
-const url = 'http://localhost:8080/realtimeproducts';
 
 async function agregarProducto(url, objeto) {
     try {
@@ -16,11 +15,36 @@ async function agregarProducto(url, objeto) {
             body: JSON.stringify(objeto),
         });
         const result = await response.json();
-        console.log(result);
     } catch (e) {
         console.log('Se produjo un error', e);
     };
 };
+
+async function updateProduct(itemProduct, id) {
+    try {
+        const url = `http://localhost:8080/api/products/${id}`;
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(itemProduct),
+        });
+    } catch (e) {
+        console.log('Se produjo un error', e);
+    };
+}
+async function deleteProduct(id) {
+    try {
+        const url = `http://localhost:8080/api/products/${id}`;
+        const response = await fetch(url, {
+            method: 'DELETE',
+        });
+
+    } catch (e) {
+        console.log('Se produjo un error', e);
+    }
+}
 
 botonAgregar.addEventListener('click', () => {
     const inputsValues = document.querySelectorAll('#inputValues');
@@ -28,10 +52,36 @@ botonAgregar.addEventListener('click', () => {
     for (const iterator of inputsValues) {
         objetoProducto[iterator.ariaLabel] = iterator.value;
     }
+    const url = 'http://localhost:8080/realtimeproducts';
     agregarProducto(url, objetoProducto)
-    socket.on('productos',);
+    socket.on('productos', (productos) => {
+        console.log('Pagina Actualizada')
+    });
 
 });
+botonModificar.addEventListener('click', () => {
+    const inputsValuesU = document.querySelectorAll('#inputValuesU');
+    const inputId = document.getElementById('inputId');
+    const itemProduct = {};
+    const id = inputId.valueAsNumber;
+    for (const iterator of inputsValuesU) {
+        itemProduct[iterator.ariaLabel] = iterator.value;
+    }
+    updateProduct(itemProduct, id)
+    socket.on('productos', (productos) => {
+        console.log('Pagina Actualizada')
+    });
+});
+
+botonEliminar.addEventListener('click', () => {
+    const inputValueD = document.getElementById('inputValueD');
+    const id = inputValueD.valueAsNumber;
+    deleteProduct(id);
+    socket.on('productos', (productos) => {
+        console.log('Pagina Actualizada')
+    });
+});
+
 
 socket.on("productos", productos => {
     const templateInner = Handlebars.compile(`

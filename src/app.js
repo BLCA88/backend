@@ -13,9 +13,8 @@ const io = new Server(server);
 //Opcion Express(Alan) para ubicar el emit en cualquier petición del archivo route.
 /* app.set('io', io);
 req.app.get("io").sockets.emit("productos", await productManager.getProducts()); */
-//Se que no es la mejor opcion pero no queria utilizar la misma. Entiendo que utilizando la opcion de express se puede utilizar ademas otras propiedades sin utilizar ninguna funcion.
-//Creo entender que en este caso se estaria enviando como propiedad de express, para poder acceder por medio del metodo get a la instancia de socket io que a su vez permite acceder a las propiedades de socket.IO.
-
+//Se que no es la mejor opcion pero no queria utilizar la misma. Entiendo que en este caso se esta enviando como propiedad de express, para poder acceder por medio del metodo get a la instancia de socket io que a su vez permite acceder a las propiedades de socket.IO.
+//Quiero ver la clase del martes para ver que otras opciones tengo aunque por ahora creo que la mejor es la de app.set. 
 export const emitProducts = async () => {
     const productos = await productManager.getProducts()
     io.emit('productos', productos);
