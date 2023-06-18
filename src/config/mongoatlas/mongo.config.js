@@ -1,9 +1,8 @@
 import { mongoose } from "mongoose";
-const uri = "mongodb+srv://jlantunez88:5cFydqHaNeCD49B1@ecommerce.6y6wds7.mongodb.net/?retryWrites=true&w=majority";
-
+import 'dotenv/config';
 export const connectionMongo = async () => {
     try {
-        await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        await mongoose.connect(process.env.MONGODB_ATLAS_USER, { useNewUrlParser: true, useUnifiedTopology: true });
     } catch (error) {
         console.log("🚀 ~ file: mongoConnect.js:9 ~ connectionMongo ~ error:", error)
     }
