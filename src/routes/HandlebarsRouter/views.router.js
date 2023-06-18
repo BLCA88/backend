@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { productManager } from '../../managers/productManager.js';
-import { emitProducts } from '../../app.js';
+import { productManager } from '../../dao/managersFS/productManager.js';
+import { io } from '../../app.js'
 
 const router = Router();
 
@@ -32,7 +32,7 @@ router.post('/realtimeproducts', async (req, res) => {
     try {
         const data = req.body;
         await productManager.addProduct(data);
-        emitProducts();
+        io.emitProducts();
         return res.send({ mensaje: 'success' });
     } catch (err) {
         return res.status(400).json({ error: err.message });

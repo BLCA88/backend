@@ -100,4 +100,4 @@ export default class ProductManager {
     }
 }
 
-export const productManager = new ProductManager('./bdProducts.json');
+export const productManager = new ProductManager('./src/db/bdProducts.json');

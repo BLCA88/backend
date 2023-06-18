@@ -56,24 +56,13 @@
 	},
 	{
 		"titulo": "AMD Ryzen 7",
-		"descripcion": "Procesador AMD Ryzen 7 5900",
-		"code": "PAR75900",
-		"precio": "203999",
+		"descripcion": "Procesador AMD Ryzen 7 6200",
+		"code": "PAR76200",
+		"precio": "230000",
 		"status": true,
-		"stock": "19",
+		"stock": "30",
 		"category": "Procesadores",
 		"imagen": [],
 		"id": 6
-	},
-	{
-		"titulo": "Intel Celeron Gold",
-		"descripcion": "Procesador Intel Celeron Gold 1240",
-		"code": "PICG1240",
-		"precio": "95300",
-		"status": true,
-		"stock": "47",
-		"category": "Procesadores",
-		"imagen": [],
-		"id": 7
 	}
 ]

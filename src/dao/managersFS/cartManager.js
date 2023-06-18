@@ -75,4 +75,4 @@ export default class CartManager {
     }
 }
 
-export const cartManager = new CartManager('./bdCart.json');
+export const cartManager = new CartManager('./src/db/bdCart.json');

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { productManager } from '../../managers/productManager.js';
-import { emitProducts } from '../../app.js';
+import { productManager } from '../../dao/managersFS/productManager.js';
+import { io } from '../../app.js'
 
 const router = Router();
 
@@ -40,7 +40,7 @@ router.put('/:id', async (req, res) => {
         const { id } = req.params;
         const { titulo, descripcion, code, precio, status, stock, category, imagen } = req.body;
         const updateProducto = await productManager.updateProduct({ titulo, descripcion, code, precio, status, stock, category, imagen }, parseInt(id))
-        emitProducts();
+        io.emitProducts();
         return res.send(updateProducto);
     } catch (err) {
         return res.status(400).json({ error: err.message });
@@ -51,7 +51,7 @@ router.delete('/:id', async (req, res) => {
     try {
         const { id } = req.params;
         await productManager.deleteProductsById(parseInt(id));
-        emitProducts();
+        io.emitProducts();
         return res.send({ mensaje: `El producto con el ID: ${id} se borro correctamente.` });
     } catch (err) {
         return res.status(400).json({ error: err.message });;
