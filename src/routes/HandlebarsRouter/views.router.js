@@ -39,4 +39,12 @@ router.post('/realtimeproducts', async (req, res) => {
     }
 });
 
+router.get('/chat', async (req, res) => {
+    try {
+        io.onChat();
+        return res.render('chat');
+    } catch (error) {
+        return res.status(400).json({ error: err.message });
+    }
+});
 export { router as viewsRouter };

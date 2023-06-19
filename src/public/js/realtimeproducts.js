@@ -102,8 +102,3 @@ socket.on("productos", productos => {
     const plantilla = templateInner({ productos });
     productosTabla.innerHTML = plantilla;
 });
-
-
-
-
-

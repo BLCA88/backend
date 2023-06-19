@@ -14,6 +14,16 @@ export default class SocketManager {
             console.log(`Nuevo usuario conectado: ClienteID-${clientId}`);
             console.log('============================================================');
             this.emitProducts();
+            //this.onChat(socket);
+            const messages = [];
+            socket.on('message', data => {
+                messages.push(data);
+                this.io.emit('messageLogs', messages);
+            });
+            socket.on('authenticated', data => {
+                socket.emit('messageLogs', messages);
+                socket.broadcast.emit('nuevoUsuario', data);
+            });
         });
         this.io.on('disconnect', async socket => {
             console.log('Cliente desconectado.')
@@ -24,4 +34,19 @@ export default class SocketManager {
         const productos = await productManager.getProducts();
         this.io.emit('productos', productos);
     };
+
+    async onChat(socket) {
+        console.log('Manejando eventos de chat');
+        console.log(socket);
+        /* const messages = [];
+        socket.on('message', data => {
+            messages.push(data);
+            this.io.emit('messageLogs', messages);
+        });
+        console.log(messages);
+        socket.on('authenticated', data => {
+            this.io.emit('messageLogs', messages);
+            this.io.broadcast.emit('nuevoUsuario', data);
+        }); */
+    }
 };
