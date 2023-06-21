@@ -1,15 +1,27 @@
 import productoModel from '../models/productos.model.js';
 
 export default class ProductdbManager {
+
+    async addproduct(producto) {
+        const nuevoProducto = new productoModel(producto);
+        try {
+            await nuevoProducto.save();
+            return nuevoProducto;
+        } catch (error) {
+            return ({
+                message: 'Se produjo un error al intentar crear el producto',
+                error: error.message
+            });
+        }
+    };
     async getProducts() {
         try {
             const products = await productoModel.find({});
             return products;
         } catch (error) {
-            throw new Error(`Ocurrio un error al intentar obtener la información de la db` + error);
+            return ({ error: error.message });
         }
     };
-
     async getProductsById(cid) {
         try {
             const productId = await productoModel.findOne({ code: cid });
@@ -18,7 +30,6 @@ export default class ProductdbManager {
             throw new Error(`Ocurrio un error al intentar obtener el producto con el ID: ${id}` + error);
         }
     };
-
     async deleteById(id) {
         try {
             const deleteProduct = await productoModel.deleteOne({ _id: id });

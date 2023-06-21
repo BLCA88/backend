@@ -29,7 +29,7 @@ const productoSchema = new mongoose.Schema({
         default: true
     },
     category: {
-        type: Number,
+        type: String,
         required: true
     },
     imagen: {

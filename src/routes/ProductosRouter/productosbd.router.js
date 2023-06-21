@@ -5,9 +5,8 @@ import { productdbManager } from "../../dao/managersMDB/productdbManager.js";
 const router = Router();
 
 router.post('/', async (req, res) => {
-    const producto = new productoModel(req.body);
     try {
-        await producto.save();
+        const producto = await productdbManager.addproduct(req.body);
         res.send(producto);
     } catch (error) {
         return res.status(500).json({ error: error.message });
