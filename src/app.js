@@ -12,17 +12,16 @@ const server = app.listen(8080, () => {
     console.log('<||Server listening on port 8080||>');
     console.log('');
 });
-
+export const io = new SocketManager(server);
 connectionMongo();
 
-export const io = new SocketManager(server);
-
+//<-------<Mildwares>--------->
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(express.static(`${__dirname}/public`));
-
 app.engine('handlebars', hadlebars.engine());
+
+//<-------<Express set>--------->
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'handlebars');
 app.use('/', viewsRouter);

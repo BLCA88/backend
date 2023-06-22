@@ -7,7 +7,7 @@ export default class MessageManager {
             await messagesdb.save();
             return ({
                 message: 'Mensajes subidos al servidor',
-                state: messagesdb.messages
+                state: messagesdb
             })
         } catch (error) {
             console.log(error);

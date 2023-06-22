@@ -1,3 +1,4 @@
+//<----------------<Conexion Mongo Atlas>---------------->
 import { mongoose } from "mongoose";
 import 'dotenv/config';
 export const connectionMongo = async () => {
@@ -22,8 +23,7 @@ mongoose.connection.on('disconnected', () => {
     console.log('[Se perdio la conexion con MongoDB Atlas]');
 });
 process.on('SIGINT', () => {
-    mongoose.connection.close(() => {
-        console.log('[Se cerro la conexion con MongoDB Atlas]');
-        process.exit();
-    });
+    mongoose.connection.close();
+    console.log('[Se cerro la conexion con MongoDB Atlas]');
+    process.exit();
 });
