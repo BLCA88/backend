@@ -9,7 +9,7 @@ export const connectionMongo = async () => {
     }
 };
 
-//<------------< Eventos de conexión >--------------->
+//<------------< Eventos de comunicación >--------------->
 mongoose.connection.on('connected', () => {
     console.log('');
     console.log('🚀 [Conexión exitosa a MongoDB Atlas] 🚀');
@@ -24,6 +24,7 @@ mongoose.connection.on('disconnected', () => {
 });
 process.on('SIGINT', () => {
     mongoose.connection.close();
+    console.log('');
     console.log('[Se cerro la conexion con MongoDB Atlas]');
     process.exit();
 });
