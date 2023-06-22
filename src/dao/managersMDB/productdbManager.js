@@ -27,7 +27,7 @@ export default class ProductdbManager {
             const productId = await productoModel.findOne({ code: cid });
             return productId;
         } catch (error) {
-            throw new Error(`Ocurrio un error al intentar obtener el producto con el ID: ${id}` + error);
+            return ({ error: error.message });
         }
     };
     async deleteById(id) {
@@ -35,7 +35,7 @@ export default class ProductdbManager {
             const deleteProduct = await productoModel.deleteOne({ _id: id });
             return deleteProduct;
         } catch (error) {
-            throw new Error(`Ocurrio un error al intentar borrar el prodcuto con el ID: ${id}` + error);
+            return ({ error: error.message });
         }
     };
 };

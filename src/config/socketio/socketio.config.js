@@ -1,6 +1,13 @@
 import { Server } from 'socket.io';
 import { productManager } from '../../dao/managersFS/productManager.js';
+import { messagedbManager } from '../../dao/managersMDB/messagesdbManager.js';
 
+//<-------------<VARIABLES>------------>
+const totalMessages = [];// Variable que recibe los mensajes del chat. 
+let messagesdb;  // Variable formateada para que se envie los mensajes con el user como mail.
+
+
+//Configuracion socket.io
 export default class SocketManager {
     constructor(server) {
         this.io = new Server(server);
@@ -22,10 +29,10 @@ export default class SocketManager {
     };
 
     async userDisconnect(socket) {
-        socket.on('disconnect', async socket => {
-            console.log('Cliente desconectado.')
+        socket.on('disconnect', async () => {
+            const ruta = socket.handshake.headers.referer;
+            console.log(`Clente desconectado desde la ruta: ${ruta}`);
         });
-
     };
     async emitProducts() {
         const productos = await productManager.getProducts();
@@ -33,15 +40,21 @@ export default class SocketManager {
     };
 
     async onChat(socket) {
-        const messages = [];
-        socket.on('message', data => {
-            messages.push(data);
-            let ultimoMensaje = [messages[messages.length - 1]];
+        socket.on('message', async data => {
+            const { message, correo } = data;
+            messagesdb = {
+                user: correo,
+                message: message
+            };
+            totalMessages.push(data);
+            let ultimoMensaje = [totalMessages[totalMessages.length - 1]];
             this.io.emit('messageLogs', ultimoMensaje);
+            await messagedbManager.createMessage(messagesdb);
         });
 
         socket.on('authenticated', data => {
             socket.broadcast.emit('nuevoUsuario', data);
         });
+
     }
 };

@@ -8,28 +8,22 @@ export const connectionMongo = async () => {
     }
 };
 
-// Manejo de eventos de conexión
+//<------------< Eventos de conexión >--------------->
 mongoose.connection.on('connected', () => {
     console.log('');
     console.log('🚀 [Conexión exitosa a MongoDB Atlas] 🚀');
 });
-
-// Manejo de eventos de error
 mongoose.connection.on('error', (error) => {
     console.log('');
     console.error('[Error de conexión a MongoDB Atlas:]', error);
 });
-
-// Manejo de eventos de desconexión
 mongoose.connection.on('disconnected', () => {
     console.log('');
-    console.log('{Se perdio la conexion con MongoDB Atlas]');
+    console.log('[Se perdio la conexion con MongoDB Atlas]');
 });
-
-// Cerrar la conexión cuando el proceso de Node.js se cierra
 process.on('SIGINT', () => {
     mongoose.connection.close(() => {
-        console.log('Mongoose connection closed due to application termination');
+        console.log('[Se cerro la conexion con MongoDB Atlas]');
         process.exit();
     });
 });
