@@ -1,6 +1,5 @@
 import { Server } from 'socket.io';
-import { productManager } from '../../dao/managersFS/productManager.js';
-import { messagedbManager } from '../../dao/managersMDB/messagesdbManager.js';
+import { productManager, messagedbManager, productdbManager } from '../../dao/index.managers.js';
 
 //<-------------<VARIABLES>------------>
 const totalMessages = [];// Variable que recibe los mensajes del chat. 
@@ -35,8 +34,9 @@ export default class SocketManager {
         });
     };
     async emitProducts() {
-        const productos = await productManager.getProducts();
-        this.io.emit('productos', productos);
+        // const productos = await productManager.getProducts();
+        const productosdb = await productdbManager.getProducts();
+        this.io.emit('productos', productosdb);
     };
 
     async onChat(socket) {

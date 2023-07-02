@@ -22,7 +22,7 @@ async function agregarProducto(url, objeto) {
 
 async function updateProduct(itemProduct, id) {
     try {
-        const url = `http://localhost:8080/api/products/${id}`;
+        const url = `http://localhost:8080/api/productsbd/${id}`;
         const response = await fetch(url, {
             method: 'PUT',
             headers: {
@@ -36,7 +36,7 @@ async function updateProduct(itemProduct, id) {
 }
 async function deleteProduct(id) {
     try {
-        const url = `http://localhost:8080/api/products/${id}`;
+        const url = `http://localhost:8080/api/productsbd/${id}`;
         const response = await fetch(url, {
             method: 'DELETE',
         });
@@ -52,7 +52,7 @@ botonAgregar.addEventListener('click', () => {
     for (const iterator of inputsValues) {
         objetoProducto[iterator.ariaLabel] = iterator.value;
     }
-    const url = 'http://localhost:8080/realtimeproducts';
+    const url = 'http://localhost:8080/api/productsbd';
     agregarProducto(url, objetoProducto)
     socket.on('productos', (productos) => {
         console.log('Pagina Actualizada')
@@ -63,11 +63,11 @@ botonModificar.addEventListener('click', () => {
     const inputsValuesU = document.querySelectorAll('#inputValuesU');
     const inputId = document.getElementById('inputId');
     const itemProduct = {};
-    const id = inputId.valueAsNumber;
+    //const id = inputId.valueAsNumber;
     for (const iterator of inputsValuesU) {
         itemProduct[iterator.ariaLabel] = iterator.value;
     }
-    updateProduct(itemProduct, id)
+    updateProduct(itemProduct, inputId.value)
     socket.on('productos', (productos) => {
         console.log('Pagina Actualizada')
     });
@@ -75,8 +75,7 @@ botonModificar.addEventListener('click', () => {
 
 botonEliminar.addEventListener('click', () => {
     const inputValueD = document.getElementById('inputValueD');
-    const id = inputValueD.valueAsNumber;
-    deleteProduct(id);
+    deleteProduct(inputValueD.value);
     socket.on('productos', (productos) => {
         console.log('Pagina Actualizada')
     });
@@ -86,8 +85,7 @@ botonEliminar.addEventListener('click', () => {
 socket.on("productos", productos => {
     const templateInner = Handlebars.compile(`
     {{#each productos}}
-    <tr>
-        <th scope="row">{{this.id}}</th>
+    <tr>        
         <td>{{this.titulo}}</td>
         <td>{{this.descripcion}}</td>
         <td>{{this.code}}</td>
@@ -99,6 +97,7 @@ socket.on("productos", productos => {
     </tr>    
     {{/each}}
     `);
+    //<th scope="row">{{this.code}}</th> ----> Campo ID al comienzo
     const plantilla = templateInner({ productos });
     productosTabla.innerHTML = plantilla;
 });
