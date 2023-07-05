@@ -1,0 +1,39 @@
+{{#if carrito}}
+<p class="lead container text-center">Carrito demo</p>
+<div class="container">
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                {{!-- <th scope="col">Id</th> --}} <!--Campo ID-->
+                <th scope="col">Codigo</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad</th>
+            </tr>
+        </thead>
+        <tbody id="prodBody">
+            {{#each productos}}
+            <tr>
+                <td id="id" style="display:none">{{this._id}}</td>
+                <td>{{this.code}}</td>
+                <td>{{this.titulo}}</td>
+                <td>{{this.descripcion}}</td>
+                <td>$ {{this.precio}}</td>
+                <td>
+                    <div class="form-outline" style="width: 4rem;">
+                        <input value="{{this.quantity}}" min="1" max="{{this.stock}}" type="number" id="typeNumber"
+                            class="form-control inputCant" />
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+{{else}}
+<p class="lead container text-center">No Tenemos productos</p>
+{{/if}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/products.js"></script>

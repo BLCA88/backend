@@ -1,26 +1,29 @@
-import productoModel from '../models/productos.model.js';
+import { productoModel } from '../models/productos.model.js';
 
 export default class ProductdbManager {
 
     async addproduct(producto) {
         const nuevoProducto = new productoModel(producto);
-        try {
+        if (nuevoProducto) {
             await nuevoProducto.save();
             return nuevoProducto;
-        } catch (error) {
-            return ({
+        } else {
+            throw new Error({
+                status: error,
                 message: 'Se produjo un error al intentar crear el producto',
-                error: error.message
             });
         }
     };
 
     async getProducts() {
-        try {
-            const products = await productoModel.find({});
+        const products = await productoModel.find({});
+        if (products) {
             return products;
-        } catch (error) {
-            return ({ error: error.message });
+        } else {
+            throw new Error({
+                status: error,
+                message: 'Se produjo un error al intentar obtener el producto',
+            });
         }
     };
 
@@ -30,11 +33,14 @@ export default class ProductdbManager {
     }
 
     async getProductsById(cid) {
-        try {
-            const productId = await productoModel.findOne({ code: cid });
+        const productId = await productoModel.findOne({ code: cid });
+        if (productId) {
             return productId;
-        } catch (error) {
-            return ({ error: error.message });
+        } else {
+            throw new Error({
+                status: error,
+                message: 'El producto no existe.',
+            });
         }
     };
 
@@ -48,16 +54,22 @@ export default class ProductdbManager {
         if (updateProduct) {
             console.log('Se actualizo el documento correctamente', updateProduct);
         } else {
-            throw new Error('Se presento un error al intentar actualizar los datos del docuemnto.')
+            throw new Error({
+                status: error,
+                message: 'Se presento un error al intentar actualizar los datos del docuemnto.',
+            });
         }
     };
 
     async deleteById(id) {
-        try {
-            const deleteProduct = await productoModel.deleteOne({ _id: id });
+        const deleteProduct = await productoModel.deleteOne({ _id: id });
+        if (deleteProduct) {
             return deleteProduct;
-        } catch (error) {
-            return ({ error: error.message });
+        } else {
+            throw new Error({
+                status: error,
+                message: 'Se presento un error al intentar borrar el producto.',
+            });
         }
     };
 };

@@ -1,9 +1,9 @@
 import express from 'express';
 import __dirname from './utils.js'
 import displayRoutes from 'express-routemap';
-import hadlebars from 'express-handlebars';
+import handlebars from 'express-handlebars';
 import { SocketManager, connectionMongo, config } from './config/index.config.js';
-import { viewsRouter, productsRouter, cartRouter, productosbdRouter } from './routes/index.routes.js';
+import { viewsRouter, productsRouter, cartRouter, productosdbRouter, cartdbRouter } from './routes/index.routes.js';
 
 
 const app = express();
@@ -22,7 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/public`));
 
 //<-------<Express set>--------->
-app.engine('handlebars', hadlebars.engine());
+app.engine('handlebars', handlebars.engine());
+
 app.set('views', `${__dirname}/views`);
 app.set('view engine', 'handlebars');
 
@@ -30,4 +31,5 @@ app.set('view engine', 'handlebars');
 app.use('/', viewsRouter);
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartRouter);
-app.use('/api/productsbd', productosbdRouter);
+app.use('/api/cartdb', cartdbRouter);
+app.use('/api/productsbd', productosdbRouter);

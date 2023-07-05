@@ -32,7 +32,6 @@ Swal.fire({
     }
 });
 
-
 //Modal Toast
 socket.on('nuevoUsuario', data => {
     Swal.fire({

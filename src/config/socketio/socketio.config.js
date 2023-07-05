@@ -34,7 +34,6 @@ export default class SocketManager {
         });
     };
     async emitProducts() {
-        // const productos = await productManager.getProducts();
         const productosdb = await productdbManager.getProducts();
         this.io.emit('productos', productosdb);
     };

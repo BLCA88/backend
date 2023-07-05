@@ -1,0 +1,62 @@
+{{#if prodPag}}
+<p class="lead container text-center">Productos demo</p>
+<div class="container">
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                {{!-- <th scope="col">Id</th> --}} <!--Campo ID-->
+                <th scope="col">Codigo</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Categoria</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody id="prodBody">
+            {{#each docs}}
+            <tr>
+                <td id="id" style="display:none">{{this._id}}</td>
+                <td>{{this.code}}</td>
+                <td>{{this.titulo}}</td>
+                <td>{{this.descripcion}}</td>
+                <td>$ {{this.precio}}</td>
+                <td>
+                    <div class="form-outline" style="width: 4rem;">
+                        <input value="1" min="1" max="{{this.stock}}" type="number" id="typeNumber"
+                            class="form-control inputCant" />
+                    </div>
+                </td>
+                <td>{{this.category}}</td>
+                <td><button id="buttonCart" type="button" class="btn btn-success">Agregar al carrito</button></td>
+            </tr>
+            {{/each}}
+            <a class="btn btn-primary" href="/products?page={{prodPag.prevPage}}" role="button"
+                syle="margin: 2px">Prev</a>
+            <a class="btn btn-primary" href="/products?page={{prodPag.nextPage}}" role="button">Next</a>
+            <div class="btn-group" role="group" syle="margin: 2px">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Categorias
+                </button>
+                <ul class="dropdown-menu">
+                    {{#each categorias }}
+                    <li>
+                        <a class="dropdown-item" href="/products?query={&quot;category&quot;:&quot;{{this}}&quot;}">
+                            {{this}}
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </tbody>
+    </table>
+    <button id="btnViewCart" class="btn btn-primary btn-lg" href="">Ver el carrito</button>
+</div>
+{{else}}
+<p class="lead container text-center">No Tenemos productos</p>
+{{/if}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/products.js"></script>

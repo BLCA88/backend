@@ -1,13 +1,21 @@
 import mongoose from 'mongoose';
+import { productosCollection } from './productos.model.js';
 
 const carritoCollection = 'carrito'
 
 const carritoSchema = new mongoose.Schema({
-    productos: {
-        type: Array,
-        default: []
-    }
+    productos: [
+        {
+            producto: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: productosCollection
+            },
+            quantity: {
+                type: Number,
+                default: 1
+            }
+        }
+    ]
 });
 
-const carritoModel = mongoose.model(carritoCollection, carritoSchema);
-export default carritoModel;
+export const carritoModel = mongoose.model(carritoCollection, carritoSchema);

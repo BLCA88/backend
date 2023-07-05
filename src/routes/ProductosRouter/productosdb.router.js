@@ -1,10 +1,12 @@
 import { Router } from "express";
 import { productdbManager } from '../../dao/index.managers.js';
-import { JOI_VALIDATOR } from '../../utils/joi.utils.js'
+import { VALIDATOR_JOI } from '../../utils/joi.utils.js'
 import { io } from '../../app.js'
 
 const router = Router();
 
+//linea 11 a 25: -> Para lo solicitado en el PP trato de obtener del req.query los parametros y creo directamente una variable options para enviar en conjunto con query el metodo Paginate al Manager.
+//-> Luego una vez recibida la respuesta completo los campos en una nueva variable response asi envio al cliente la respuesta editada.
 router.get('/', async (req, res) => {
     try {
         const limit = parseInt(req.query.limit) || 10;
@@ -15,7 +17,7 @@ router.get('/', async (req, res) => {
         const options = {
             page: page,
             limit: limit,
-            sort: { _id: sort },
+            sort: { precio: sort },
         };
 
         const productos = await productdbManager.getProductPaginate(query, options);
@@ -48,12 +50,14 @@ router.get('/:pcod', async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
 });
-export { router as productosbdRouter };
 
+// linea 58 a 68: -> Obtengo las propiedades desde el body y aplico JOI para validar los campos antes de enviarlos a la nube creo que es una forma practica y dinamica de validar los datos antes,
+// -> enviarlos al servidor.
 router.post('/', async (req, res) => {
     try {
         const { titulo, descripcion, code, precio, stock, category, imagen } = req.body;
-        const nwProduct = await JOI_VALIDATOR.product.validateAsync({
+        console.log(titulo, descripcion, code, precio, stock, category, imagen)
+        const nwProduct = await VALIDATOR_JOI.product.validateAsync({
             titulo,
             descripcion,
             code,
@@ -92,3 +96,5 @@ router.delete('/:id', async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
 });
+
+export { router as productosdbRouter };

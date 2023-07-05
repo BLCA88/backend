@@ -11,4 +11,4 @@ const product = joi.object({
     imagen: joi.array(),
 });
 
-export const JOI_VALIDATOR = { product } 
+export const VALIDATOR_JOI = { product } 

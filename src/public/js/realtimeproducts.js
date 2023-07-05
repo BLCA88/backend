@@ -48,9 +48,12 @@ async function deleteProduct(id) {
 
 botonAgregar.addEventListener('click', () => {
     const inputsValues = document.querySelectorAll('#inputValues');
+    //console.log(inputsValues)
     const objetoProducto = {};
     for (const iterator of inputsValues) {
-        objetoProducto[iterator.ariaLabel] = iterator.value;
+        console.log(iterator)
+        objetoProducto[iterator.placeholder] = iterator.value;
+        console.log(objetoProducto);
     }
     const url = 'http://localhost:8080/api/productsbd';
     agregarProducto(url, objetoProducto)
@@ -65,7 +68,7 @@ botonModificar.addEventListener('click', () => {
     const itemProduct = {};
     //const id = inputId.valueAsNumber;
     for (const iterator of inputsValuesU) {
-        itemProduct[iterator.ariaLabel] = iterator.value;
+        itemProduct[iterator.placeholder] = iterator.value;
     }
     updateProduct(itemProduct, inputId.value)
     socket.on('productos', (productos) => {
