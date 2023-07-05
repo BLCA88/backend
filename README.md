@@ -244,7 +244,7 @@ router.get('/:cid', async (req, res) => {
 ```
 ## Views /products
 
-Para el último punto cree la vista */products* con la vista de los productos existentes. Por medio del método **Paginate()** y  **Handlebars** muestro la vista a la cual agregue un botón de agregar al carrito. También agregue 4 botones 2 son ver los productos que están limitados a 10 por página, otro botón es un dropdown para filtrar los productos por categoría y el ultimo dirige a la vista */cards/:cid* para mostrar el carrito creado por el cliente con sus respectivos productos. La vista */cards/:cid* genera una petición con el método **populate()** del cual se obtiene el carrito con las referencias de los productos. 
+Para el último punto cree la vista */products* con la vista de los productos existentes. Por medio del método **Paginate()** y  **Handlebars** muestro la vista a la cual agregue un botón de agregar al carrito. También agregue 4 botones 2 son ver las paginas siguientes y anteriores que están limitados a 10 productos por página, otro botón es un dropdown para filtrar los productos por categoría y el ultimo dirige a la vista */cards/:cid* para mostrar el carrito creado por el cliente con sus respectivos productos. La vista */cards/:cid* genera una petición con el método **populate()** del cual se obtiene el carrito con las referencias de los productos. 
 
 ```
 router.get('/products', async (req, res) => {
