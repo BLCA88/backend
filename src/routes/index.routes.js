@@ -3,3 +3,4 @@ export { cartRouter } from './CarritoRouter/cart.router.js';
 export { productsRouter } from './ProductosRouter/products.router.js';
 export { productosdbRouter } from './ProductosRouter/productosdb.router.js';
 export { cartdbRouter } from './CarritoRouter/cartdb.router.js';
+export { sessionRouter } from './SessionsRouter/session.router.js';

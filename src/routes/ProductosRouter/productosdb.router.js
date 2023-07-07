@@ -56,7 +56,7 @@ router.get('/:pcod', async (req, res) => {
 router.post('/', async (req, res) => {
     try {
         const { titulo, descripcion, code, precio, stock, category, imagen } = req.body;
-        console.log(titulo, descripcion, code, precio, stock, category, imagen)
+
         const nwProduct = await VALIDATOR_JOI.product.validateAsync({
             titulo,
             descripcion,

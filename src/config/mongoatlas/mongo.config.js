@@ -9,6 +9,7 @@ export const connectionMongo = async () => {
     }
 };
 
+
 //<------------< Eventos de comunicación >--------------->
 mongoose.connection.on('connected', () => {
     console.log('');

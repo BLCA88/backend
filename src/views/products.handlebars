@@ -1,6 +1,21 @@
 {{#if prodPag}}
+
 <p class="lead container text-center">Productos demo</p>
 <div class="container">
+    <div class="card m-20">
+        {{#if user}}
+        <div class="text-center bd-highlight bg-primary text-white">
+            <h1 class="h1 mx-auto p-3">Bienvenido </h1>
+            <h2 class="h2">{{#with user}}{{name}} {{last_name}}{{/with}}</h2>
+        </div>
+        <div>
+            <h2 class="h2 text-end">{{#with user}} {{role}} {{/with}}</h2>
+        </div>
+        {{/if}}
+        <div class="text-end">
+            <a class="btn btn-danger" href="/logout" role="button">Logout</a>
+        </div>
+    </div>
     <table class="table table-success table-striped">
         <thead>
             <tr>

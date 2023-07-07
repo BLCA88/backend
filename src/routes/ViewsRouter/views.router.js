@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { productdbManager, cartdbManager } from '../../dao/index.managers.js';
-import { io } from '../../app.js'
+import { io } from '../../app.js';
 
 const router = Router();
 
@@ -21,10 +21,15 @@ router.get('/', async (req, res) => {
 
 router.get('/products', async (req, res) => {
     try {
+        if (!req.session.user) {
+            return res.redirect('/login');
+        }
+
         const limit = parseInt(req.query.limit);
         const page = parseInt(req.query.page);
         const sort = req.query.sort === 'desc' ? -1 : 1;
         const query = req.query.query ? JSON.parse(req.query.query) : {};
+        const user = req.session.user;
 
         const options = {
             page: page || 1,
@@ -40,10 +45,12 @@ router.get('/products', async (req, res) => {
 
         const productos = await productdbManager.getProducts();
         const categorias = [...new Set(productos.map(c => c.category))];
+
         return res.render('products', {
             prodPag,
             docs,
-            categorias
+            categorias,
+            user
         });
     } catch (error) {
         return res.status(400).json({ error: error.message });
@@ -73,8 +80,31 @@ router.get('/carts/:cid', async (req, res) => {
     }
 });
 
+const session = (req, res, next) => {
+    if (!req.session.user === 'admin') {
+        return res.redirect('/products');
+    }
+    next();
+};
+
+router.get('/login', session, async (req, res) => {
+    res.render('login');
+});
+
+router.get('/register', session, async (req, res) => {
+    res.render('register');
+});
+
+router.get('/logout', async (req, res) => {
+    req.session.destroy();
+    res.redirect('/login');
+});
+
 router.get('/realtimeproducts', async (req, res) => {
     try {
+        if (!req.session.user) {
+            return res.redirect('/login');
+        }
         const productos = await productdbManager.getProducts();
         return res.render('realTimeProducts', {
             productos
@@ -83,6 +113,7 @@ router.get('/realtimeproducts', async (req, res) => {
         return res.status(400).json({ error: err.message });
     }
 });
+
 
 router.get('/chat', async (req, res) => {
     try {
