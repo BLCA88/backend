@@ -1,9 +1,9 @@
-import { productoModel } from '../models/productos.model.js';
+import { productModel } from '../models/productos.model.js';
 
 export default class ProductdbManager {
 
     async addproduct(producto) {
-        const nuevoProducto = new productoModel(producto);
+        const nuevoProducto = new productModel(producto);
         if (nuevoProducto) {
             await nuevoProducto.save();
             return nuevoProducto;
@@ -16,7 +16,7 @@ export default class ProductdbManager {
     };
 
     async getProducts() {
-        const products = await productoModel.find({});
+        const products = await productModel.find({});
         if (products) {
             return products;
         } else {
@@ -28,12 +28,12 @@ export default class ProductdbManager {
     };
 
     async getProductPaginate(query, options) {
-        const paginateProducts = await productoModel.paginate(query, options);
+        const paginateProducts = await productModel.paginate(query, options);
         return paginateProducts;
     }
 
     async getProductsById(cid) {
-        const productId = await productoModel.findOne({ code: cid });
+        const productId = await productModel.findOne({ code: cid });
         if (productId) {
             return productId;
         } else {
@@ -50,7 +50,7 @@ export default class ProductdbManager {
             console.log('No hay campos para actualizar.');
             return;
         }
-        const updateProduct = await productoModel.findByIdAndUpdate(id, objeto, { new: true });
+        const updateProduct = await productModel.findByIdAndUpdate(id, objeto, { new: true });
         if (updateProduct) {
             console.log('Se actualizo el documento correctamente', updateProduct);
         } else {
@@ -62,7 +62,7 @@ export default class ProductdbManager {
     };
 
     async deleteById(id) {
-        const deleteProduct = await productoModel.deleteOne({ _id: id });
+        const deleteProduct = await productModel.deleteOne({ _id: id });
         if (deleteProduct) {
             return deleteProduct;
         } else {

@@ -1,5 +1,5 @@
 import { Server } from 'socket.io';
-import { productManager, messagedbManager, productdbManager } from '../../dao/index.managers.js';
+import { messagedbManager, productdbManager } from '../../dao/index.managers.js';
 
 //<-------------<VARIABLES>------------>
 const totalMessages = [];// Variable que recibe los mensajes del chat. 
@@ -29,25 +29,25 @@ export default class SocketManager {
 
     async userDisconnect(socket) {
         socket.on('disconnect', async () => {
-            const ruta = socket.handshake.headers.referer;
-            console.log(`Clente desconectado desde la ruta: ${ruta}`);
+            const route = socket.handshake.headers.referer;
+            console.log(`Clente desconectado desde la ruta: ${route}`);
         });
     };
     async emitProducts() {
-        const productosdb = await productdbManager.getProducts();
-        this.io.emit('productos', productosdb);
+        const productsdb = await productdbManager.getProducts();
+        this.io.emit('products', productsdb);
     };
 
     async onChat(socket) {
         socket.on('message', async data => {
-            const { message, correo } = data;
+            const { message, email } = data;
             messagesdb = {
-                user: correo,
+                user: email,
                 message: message
             };
             totalMessages.push(data);
-            let ultimoMensaje = [totalMessages[totalMessages.length - 1]];
-            this.io.emit('messageLogs', ultimoMensaje);
+            let lastMessage = [totalMessages[totalMessages.length - 1]];
+            this.io.emit('messageLogs', lastMessage);
             await messagedbManager.createMessage(messagesdb);
         });
 

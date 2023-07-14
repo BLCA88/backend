@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { productosCollection } from './productos.model.js';
+import { productsCollection } from './productos.model.js';
 
 const carritoCollection = 'carrito'
 
@@ -8,7 +8,7 @@ const carritoSchema = new mongoose.Schema({
         {
             producto: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: productosCollection
+                ref: productsCollection
             },
             quantity: {
                 type: Number,

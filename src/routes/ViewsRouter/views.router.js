@@ -5,13 +5,7 @@ import { io } from '../../app.js';
 const router = Router();
 
 router.get('/', async (req, res) => {
-    try {
-        const productos = await productdbManager.getProducts();
-        return res.render('home', productos);
-
-    } catch (err) {
-        return res.status(400).json({ error: err.message });
-    }
+    res.redirect('/login');
 });
 
 // linea: 36 -> Cada vez que queria obtener las propiedades de Mongo si no modificaba el dato de _id: como un dato plano me generaba error. No podia usar lean() y lo que se me ocurrio es modificar el 
@@ -76,12 +70,12 @@ router.get('/carts/:cid', async (req, res) => {
             productos
         });
     } catch (error) {
-
+        return res.status(400).json({ error: err.message });
     }
 });
 
 const session = (req, res, next) => {
-    if (!req.session.user === 'admin') {
+    if (req.session.user) {
         return res.redirect('/products');
     }
     next();

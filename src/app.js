@@ -3,20 +3,18 @@ import __dirname from './utils.js'
 import displayRoutes from 'express-routemap';
 import handlebars from 'express-handlebars';
 import cookieParser from 'cookie-parser';
-import { SocketManager, connectionMongo, config } from './config/index.config.js';
+import { SocketManager, connectionMongo, varenv } from './config/index.config.js';
 import { viewsRouter, productsRouter, cartRouter, productosdbRouter, cartdbRouter, sessionRouter } from './routes/index.routes.js';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
-import 'dotenv/config';
-
-
-
+import passport from 'passport';
+import initializePassport from './config/passport/passport.config.js';
 
 
 export const app = express();
-const server = app.listen(config.PORT, () => {
+const server = app.listen(varenv.PORT, () => {
     displayRoutes(app);
-    console.log(`<||Server listening on port ${config.PORT}||>`);
+    console.log(`<||Server listening on port ${varenv.PORT}||>`);
     console.log('');
     connectionMongo();
 });
@@ -30,17 +28,20 @@ app.use(cookieParser());
 app.use(express.static(`${__dirname}/public`));
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: process.env.MONGODB_ATLAS_USER,
+        mongoUrl: varenv.MONGODB,
         mongoOptions: {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         },
         ttl: 6 * 3600
     }),
-    secret: process.env.SECRET,
+    secret: varenv.SECRET,
     resave: false,
     saveUninitialized: false,
 }));
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //-----<Express set>--------->

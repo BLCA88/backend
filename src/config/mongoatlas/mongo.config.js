@@ -1,9 +1,9 @@
 //<----------------<Conexion Mongo Atlas>---------------->
 import { mongoose } from "mongoose";
-import 'dotenv/config';
+import { varenv } from "../index.config.js";
 export const connectionMongo = async () => {
     try {
-        await mongoose.connect(process.env.MONGODB_ATLAS_USER, { useNewUrlParser: true, useUnifiedTopology: true });
+        await mongoose.connect(varenv.MONGODB, { useNewUrlParser: true, useUnifiedTopology: true });
     } catch (error) {
         console.log("🚀 ~ file: mongoConnect.js:9 ~ connectionMongo ~ error:", error)
     }
